@@ -1,78 +1,25 @@
-https://docs.google.com/document/d/1KMRZciiDZU2d6Z62XNe2j_Li5cA2B2C7-bguP-kE5_4/edit?usp=sharing
-import re
-import firebase_admin
-from firebase_admin import credentials, firestore
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Usuários</title>
+</head>
+<body>
+  <h1>Cadastro de Usuários</h1>
+  <form action="/cadastrar" method="POST">
+    <label>Nome:</label><br>
+    <input type="text" name="nome" maxlength="50" required><br><br>
 
-# ===== Conexão com Firebase =====
-cred = credentials.Certificate("firebase-key.json")  # seu arquivo de chave
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+    <label>Telefone:</label><br>
+    <input type="text" name="telefone" maxlength="15" required><br><br>
 
-# ===== Validações =====
-def validar_nome(nome):
-    return bool(re.match(r"^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,50}$", nome.strip()))
+    <label>Email:</label><br>
+    <input type="email" name="email" maxlength="50" required><br><br>
 
-def validar_telefone(telefone):
-    digitos = re.sub(r"\D", "", telefone)
-    return 8 <= len(digitos) <= 15
+    <label>Senha:</label><br>
+    <input type="password" name="senha" maxlength="10" required><br><br>
 
-def validar_email(email):
-    return bool(re.match(r"^[\w\.-]+@[\w\.-]+\.\w{2,}$", email)) and len(email) <= 50
-
-def validar_senha(senha):
-    return senha.strip() != "" and 4 <= len(senha) <= 10
-
-# ===== Sistema de Cadastro =====
-def sistema_cadastro():
-    print("\n===== Sistema de Usuários =====")
-    
-    while True:
-        nome = input("Nome completo (máx. 50 caracteres): ").strip()
-        if validar_nome(nome):
-            break
-        print("Nome inválido!")
-
-    while True:
-        telefone = input("Telefone (pode ter +, -, () ): ").strip()
-        if validar_telefone(telefone):
-            telefone = re.sub(r"\D", "", telefone)
-            break
-        print("Telefone inválido!")
-
-    while True:
-        email = input("E-mail: ").strip()
-        if validar_email(email):
-            break
-        print("E-mail inválido!")
-
-    while True:
-        senha = input("Senha (4 a 10 caracteres): ")
-        if validar_senha(senha):
-            break
-        print("Senha inválida!")
-
-    while True:
-        confirmar = input("Confirme a senha: ")
-        if confirmar == senha:
-            break
-        print("Senhas não coincidem!")
-
-    # ===== Salvando no Firebase =====
-    usuario = {
-        "nome": nome,
-        "telefone": telefone,
-        "email": email,
-        "senha": senha
-    }
-    db.collection("usuarios").add(usuario)  # cria um documento dentro da coleção "usuarios"
-
-    print(f"\nUsuário {nome} cadastrado com sucesso no Firebase!")
-
-# ===== Executando =====
-if __name__ == "__main__":
-    while True:
-        sistema_cadastro()
-        continuar = input("\nCadastrar outro usuário? (s/n): ").lower()
-        if continuar != "s":
-            print("\nCadastro finalizado. Confira no Firebase Firestore.")
-            break
+    <button type="submit">Cadastrar</button>
+  </form>
+</body>
+</html>
