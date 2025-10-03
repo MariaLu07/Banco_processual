@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro - Hábitos+</title>
+  <link rel="stylesheet" href="cadastro.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div style="display: flex; align-items: center">
+      <img src="logo_hábitos-removebg-preview.png" alt="Logo">
+      <a href="inicio.html" style="text-decoration: none;"><span class="logo-text">HÁBITOS+</span></a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <label for="themeSwitch">Modo Escuro</label>
+      <input id="themeSwitch" type="checkbox" class="toggle-theme">
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Crie sua Conta</h2>
+    <form>
+      <label for="fullname">Nome Completo</label>
+      <input type="text" id="fullname" required>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" required>
+
+      <label for="phone">Telefone</label>
+      <input type="tel" id="phone">
+
+      <label for="password">Senha</label>
+      <input type="password" id="password" required>
+
+      <label for="confirm-password">Confirmar Senha</label>
+      <input type="password" id="confirm-password" required>
+      <a href="inicio2.html"><button type="button" onclick="window.location.href='inicio2.html'">Cadastrar</button></a>
+    </form>
+    <div class="link">
+      <a href="login.html">Já tem uma conta? Entrar</a>
+    </div>
+  </div>
+</body>
+</html>
+<script>
+  const toggle = document.getElementById('themeSwitch');
+
+  toggle.addEventListener('change', () => {
+    document.body.classList.toggle('light-theme');
+
+    if (document.body.classList.contains('light-theme')) {
+      // Modo Claro
+      document.documentElement.style.setProperty('--bg', '#f8fafc');
+      document.documentElement.style.setProperty('--card', '#ffffff');
+      document.documentElement.style.setProperty('--text', '#020617');
+    } else {
+      // Modo Escuro
+      document.documentElement.style.setProperty('--bg', '#0f172a');
+      document.documentElement.style.setProperty('--card', '#1e293b');
+      document.documentElement.style.setProperty('--text', '#f1f5f9');
+    }
+    
+  });
+</script>
